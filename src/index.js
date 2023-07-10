@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
+import CryptoJS from "crypto-js";
 
 const app = express();
 app.use(cors());
@@ -51,7 +52,15 @@ app.get("/step2", (req, res) => {
 });
 
 app.get("/step3", (req, res) => {
+  let iv = CryptoJS.enc.Hex.parse("0000000000000000");
+  let key = CryptoJS.enc.Utf8.parse("b14ca5898a4e4133bbce2ea2315a1916");
+  let encryptedMsg = CryptoJS.AES.encrypt("CBE_School_Fee", key, {
+    iv,
+  }).toString();
     
-})
+    
+    
+    
+});
 
 app.listen(4006, () => console.log("Server is running on port 4005"));
