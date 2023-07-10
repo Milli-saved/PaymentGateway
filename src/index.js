@@ -80,4 +80,18 @@ app.get("/step3", (req, res) => {
   }
 });
 
+app.get("/step4", (req, res) => {
+    let data = {
+        TillCode: "005"
+    }
+    axios
+      .post(baseURL + "CheckMeDEC", data)
+      .then((response) => {
+        res.status(200).json(response.data);
+      })
+      .catch((error) => {
+        res.status(400).json(error);
+      });
+});
+
 app.listen(4006, () => console.log("Server is running on port 4005"));
