@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
-import CryptoJS from "crypto-js";
+const CryptoJS = require("crypto-js");
 
 const app = express();
 app.use(cors());
@@ -52,15 +52,33 @@ app.get("/step2", (req, res) => {
 });
 
 app.get("/step3", (req, res) => {
-  let iv = CryptoJS.enc.Hex.parse("0000000000000000");
-  let key = CryptoJS.enc.Utf8.parse("b14ca5898a4e4133bbce2ea2315a1916");
-  let encryptedMsg = CryptoJS.AES.encrypt("CBE_School_Fee", key, {
-    iv,
-  }).toString();
-    
-    
-    
-    
+  if (status.step2) {
+    let iv = CryptoJS.enc.Hex.parse("0000000000000000");
+    let key = CryptoJS.enc.Utf8.parse("b14ca5898a4e4133bbce2ea2315a1916");
+    let encryptedMsg = CryptoJS.AES.encrypt("CBE_School_Fee", key, {
+      iv,
+    }).toString();
+    let data = {
+      MName: encryptedMsg,
+      TillCode: "005",
+    };
+    console.log("passed the enc: ", data);
+    axios
+      .post(baseURL + "CheckMeENC", data)
+      .then((response) => {
+        if (response.data.startsWith("O")) {
+          status.step3 = true;
+        }
+        res.status(200).json(response.data);
+      })
+      .catch((error) => {
+        res.status(400).json(error);
+      });
+  } else {
+    res.status(200).json({
+      msg: "Step 2 is false.",
+    });
+  }
 });
 
 app.listen(4006, () => console.log("Server is running on port 4005"));
