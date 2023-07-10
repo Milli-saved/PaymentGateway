@@ -62,7 +62,6 @@ app.get("/step3", (req, res) => {
       MName: encryptedMsg,
       TillCode: "005",
     };
-    console.log("passed the enc: ", data);
     axios
       .post(baseURL + "CheckMeENC", data)
       .then((response) => {
