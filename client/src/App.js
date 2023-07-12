@@ -1,27 +1,40 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   createPaymentGateway1,
   createPaymentGateway2,
   createPaymentGateway3,
   createPaymentGateway4,
 } from "./paymentFeatures/paymentSlice";
+import { useEffect } from "react";
 
 function App() {
   const dispatch = useDispatch();
-  const buttonHandler1 = () => {
-    dispatch(createPaymentGateway1());
-  };
-  const buttonHandler2 = () => {
-    dispatch(createPaymentGateway2());
-  };
-  const buttonHandler3 = () => {
-    dispatch(createPaymentGateway3());
-  };
-  const buttonHandler4 = () => {
-    dispatch(createPaymentGateway4());
-  };
+  const { step, msg } = useSelector((state) => state.payment);
+  useEffect(() => {
+    if (step === 0) {
+      dispatch(createPaymentGateway1());
+    } else if (step === 1) {
+      dispatch(createPaymentGateway2());
+    } else if (step === 2) {
+      dispatch(createPaymentGateway3());
+    } else if (step === 3) {
+      dispatch(createPaymentGateway4());
+    }
+  }, [step]);
+  // const buttonHandler1 = () => {
+  //   dispatch(createPaymentGateway1());
+  // };
+  // const buttonHandler2 = () => {
+  //   dispatch(createPaymentGateway2());
+  // };
+  // const buttonHandler3 = () => {
+  //   dispatch(createPaymentGateway3());
+  // };
+  // const buttonHandler4 = () => {
+  //   dispatch(createPaymentGateway4());
+  // };
   return (
     <div className="App">
       <header className="App-header">
@@ -29,7 +42,10 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <button
+        <p>step : { step }</p>
+        <p>The message from the gate way</p>
+        <p>{ msg }</p>
+        {/* <button
           onClick={buttonHandler1}
           className="App-link"
           href="https://reactjs.org"
@@ -64,7 +80,7 @@ function App() {
           rel="noopener noreferrer"
         >
           Step 4
-        </button>
+        </button> */}
       </header>
     </div>
   );
