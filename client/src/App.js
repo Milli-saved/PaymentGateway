@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import {
   createPaymentGateway1,
   createPaymentGateway2,
+  createPaymentGateway3,
 } from "./paymentFeatures/paymentSlice";
 
 function App() {
@@ -13,6 +14,9 @@ function App() {
   };
   const buttonHandler2 = () => {
     dispatch(createPaymentGateway2());
+  };
+  const buttonHandler3 = () => {
+    dispatch(createPaymentGateway3());
   };
   return (
     <div className="App">
@@ -38,6 +42,15 @@ function App() {
           rel="noopener noreferrer"
         >
           Step 2
+        </button>
+        <button
+          onClick={buttonHandler3}
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Step 3
         </button>
       </header>
     </div>
