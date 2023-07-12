@@ -22,7 +22,7 @@ function App() {
     } else if (step === 3) {
       dispatch(createPaymentGateway4());
     }
-  }, [step]);
+  }, [step, dispatch]);
   // const buttonHandler1 = () => {
   //   dispatch(createPaymentGateway1());
   // };
@@ -42,9 +42,9 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <p>step : { step }</p>
+        <p>step : {step}</p>
         <p>The message from the gate way</p>
-        <p>{ msg }</p>
+        <p>{msg}</p>
         {/* <button
           onClick={buttonHandler1}
           className="App-link"
