@@ -15,3 +15,8 @@ const step1 = async () => {
   const response = await axios.get(BaseURL + "CheckCall");
   return response.data;
 };
+
+const paymentService = {
+  step1,
+};
+export default paymentService;
