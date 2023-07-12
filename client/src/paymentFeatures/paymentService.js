@@ -42,9 +42,21 @@ const step3 = async () => {
   return response.data;
 };
 
+const step4 = async () => {
+  let header = {
+    "Content-Type": "application/xml",
+    changeOrigin: true,
+  };
+  const data = {
+    tillCode: "005",
+  };
+  const response = await axios.post(BaseURL + "CheckMeDEC", data, header);
+  return response.data;
+};
 const paymentService = {
   step1,
   step2,
   step3,
+  step4,
 };
 export default paymentService;

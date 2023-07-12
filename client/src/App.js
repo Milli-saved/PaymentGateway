@@ -5,6 +5,7 @@ import {
   createPaymentGateway1,
   createPaymentGateway2,
   createPaymentGateway3,
+  createPaymentGateway4,
 } from "./paymentFeatures/paymentSlice";
 
 function App() {
@@ -17,6 +18,9 @@ function App() {
   };
   const buttonHandler3 = () => {
     dispatch(createPaymentGateway3());
+  };
+  const buttonHandler4 = () => {
+    dispatch(createPaymentGateway4());
   };
   return (
     <div className="App">
@@ -51,6 +55,15 @@ function App() {
           rel="noopener noreferrer"
         >
           Step 3
+        </button>
+        <button
+          onClick={buttonHandler4}
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Step 4
         </button>
       </header>
     </div>
