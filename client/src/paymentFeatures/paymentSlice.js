@@ -6,6 +6,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   isSuccess: false,
+  step: 0,
 };
 
 export const createPaymentGateway1 = createAsyncThunk(
@@ -58,6 +59,7 @@ export const paySchoolFeeSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         console.log("the response when fulfilled: ", action.payload);
+        state.step = 1;
       })
       .addCase(createPaymentGateway1.rejected, (state, action) => {
         state.isLoading = false;
@@ -73,6 +75,7 @@ export const paySchoolFeeSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         console.log("the response when fulfilled 2: ", action.payload);
+        state.step = 2;
       })
       .addCase(createPaymentGateway2.rejected, (state, action) => {
         state.isLoading = false;
