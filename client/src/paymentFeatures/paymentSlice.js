@@ -7,6 +7,7 @@ const initialState = {
   isError: false,
   isSuccess: false,
   step: 0,
+  error: "",
 };
 
 export const createPaymentGateway1 = createAsyncThunk(
@@ -92,11 +93,13 @@ export const paySchoolFeeSlice = createSlice({
         state.isSuccess = true;
         console.log("the response when fulfilled: ", action.payload);
         state.step = 1;
+        state.msg = action.payload;
       })
       .addCase(createPaymentGateway1.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         console.log("response when error occurs: ", action.payload);
+        state.error = action.payload;
       })
       .addCase(createPaymentGateway2.pending, (state) => {
         state.isLoading = true;
@@ -108,11 +111,13 @@ export const paySchoolFeeSlice = createSlice({
         state.isSuccess = true;
         console.log("the response when fulfilled 2: ", action.payload);
         state.step = 2;
+        state.msg = action.action;
       })
       .addCase(createPaymentGateway2.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         console.log("response when error occurs 2: ", action.payload);
+        state.error = action.payload;
       })
       .addCase(createPaymentGateway3.pending, (state) => {
         state.isLoading = true;
@@ -124,11 +129,13 @@ export const paySchoolFeeSlice = createSlice({
         state.isSuccess = true;
         console.log("the response when fulfilled 3: ", action.payload);
         state.step = 3;
+        state.msg = action.payload;
       })
       .addCase(createPaymentGateway3.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         console.log("response when error occurs 3: ", action.payload);
+        state.error = action.payload;
       })
       .addCase(createPaymentGateway4.pending, (state) => {
         state.isLoading = true;
@@ -140,11 +147,13 @@ export const paySchoolFeeSlice = createSlice({
         state.isSuccess = true;
         console.log("the response when fulfilled 4: ", action.payload);
         state.step = 4;
+        state.msg = action.payload;
       })
       .addCase(createPaymentGateway4.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         console.log("response when error occurs 4: ", action.payload);
+        state.error = action.payload;
       });
   },
 });
