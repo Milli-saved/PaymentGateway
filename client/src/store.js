@@ -1,0 +1,11 @@
+import { configureStore } from "@reduxjs/toolkit";
+import paymentReducer from "./paymentFeatures/paymentSlice";
+
+export const store = configureStore(
+  {
+    reducer: {
+      payment: paymentReducer,
+    },
+  },
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
