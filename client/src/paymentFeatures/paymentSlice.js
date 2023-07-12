@@ -24,6 +24,22 @@ export const createPaymentGateway1 = createAsyncThunk(
     }
   }
 );
+export const createPaymentGateway2 = createAsyncThunk(
+  "payment/createPaymentGateway2",
+  async (_, thunkAPI) => {
+    try {
+      return await paymentService.step2();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const paySchoolFeeSlice = createSlice({
   name: "payment",
@@ -47,6 +63,21 @@ export const paySchoolFeeSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         console.log("response when error occurs: ", action.payload);
+      })
+      .addCase(createPaymentGateway2.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.isSuccess = false;
+      })
+      .addCase(createPaymentGateway2.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        console.log("the response when fulfilled 2: ", action.payload);
+      })
+      .addCase(createPaymentGateway2.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        console.log("response when error occurs 2: ", action.payload);
       });
   },
 });
