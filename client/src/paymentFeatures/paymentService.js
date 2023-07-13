@@ -1,15 +1,21 @@
 import axios from "axios";
 import CryptoJS from "crypto-js";
-const BaseURL =
-  "https://cors-anywhere.herokuapp.com/https://cbebirrpaymentgateway.cbe.com.et:8888/api/cbebpg/";
+const BaseURL = "https://cbebirrpaymentgateway.cbe.com.et:8888/api/cbebpg";
 
 const step1 = async () => {
-  let header = {
-    "Content-Type": "application/xml",
-    changeOrigin: true,
-  };
-  const response = await axios.get(BaseURL + "CheckCall", header);
-  return response.data;
+  // let header = {
+  //   "Content-Type": "application/xml",
+  //   changeOrigin: true,
+  // };
+  //   const response = await axios.get(BaseURL + "CheckCall", header);
+  // const response = await axios.get("/api/cbebpg/CheckCall", header);
+  console.log("got here *******************************************")
+  const response = await fetch(BaseURL + "/CheckCall", { mode: "no-cors" });
+  console.log("got here response: ", response)
+  let data = await response.json();
+  console.log("got here ########################################")
+  console.log("the responsed: ", data);
+  return response;
 };
 
 const step2 = async () => {
