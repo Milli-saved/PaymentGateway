@@ -14,7 +14,7 @@ function App() {
   const { step, msg } = useSelector((state) => state.payment);
   useEffect(() => {
     if (step === 0) {
-      dispatch(createPaymentGateway1());
+      // dispatch(createPaymentGateway1());
     } else if (step === 1) {
       dispatch(createPaymentGateway2());
     } else if (step === 2) {
@@ -23,18 +23,18 @@ function App() {
       dispatch(createPaymentGateway4());
     }
   }, [step, dispatch]);
-  // const buttonHandler1 = () => {
-  //   dispatch(createPaymentGateway1());
-  // };
-  // const buttonHandler2 = () => {
-  //   dispatch(createPaymentGateway2());
-  // };
-  // const buttonHandler3 = () => {
-  //   dispatch(createPaymentGateway3());
-  // };
-  // const buttonHandler4 = () => {
-  //   dispatch(createPaymentGateway4());
-  // };
+  const buttonHandler1 = () => {
+    dispatch(createPaymentGateway1());
+  };
+  const buttonHandler2 = () => {
+    dispatch(createPaymentGateway2());
+  };
+  const buttonHandler3 = () => {
+    dispatch(createPaymentGateway3());
+  };
+  const buttonHandler4 = () => {
+    dispatch(createPaymentGateway4());
+  };
   return (
     <div className="App">
       <header className="App-header">
@@ -45,12 +45,13 @@ function App() {
         <p>step : {step}</p>
         <p>The message from the gate way</p>
         <p>{msg}</p>
-        {/* <button
+        <button
           onClick={buttonHandler1}
           className="App-link"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
+          style={{color: "black"}}
         >
           Step 1
         </button>
@@ -60,6 +61,7 @@ function App() {
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
+          style={{color: "black"}}
         >
           Step 2
         </button>
@@ -69,6 +71,7 @@ function App() {
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
+          style={{color: "black"}}
         >
           Step 3
         </button>
@@ -78,9 +81,10 @@ function App() {
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
+          style={{color: "black"}}
         >
           Step 4
-        </button> */}
+        </button> 
       </header>
     </div>
   );
