@@ -9,13 +9,36 @@ const step1 = async () => {
   // };
   //   const response = await axios.get(BaseURL + "CheckCall", header);
   // const response = await axios.get("/api/cbebpg/CheckCall", header);
-  console.log("got here *******************************************")
-  const response = await fetch(BaseURL + "/CheckCall", { mode: "no-cors" });
-  console.log("got here response: ", response)
-  let data = await response.json();
-  console.log("got here ########################################")
-  console.log("the responsed: ", data);
-  return response;
+  // let header = {
+  //   "Content-Type": "application/json",
+  //   "Access-Control-Allow-Origin": " *",
+  //   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  //   "Access-Control-Allow-Headers": "Content-Type",
+  // };
+  // console.log("got here *******************************************");
+  // const response = await axios.get(BaseURL + "/CheckCall", header);
+  // console.log("got here response: ", response);
+  // let data = await response.json();
+  // console.log("got here ########################################");
+  // console.log("the responsed: ", data);
+  // return response;
+
+  // try AXIOS
+
+  // axios({
+  //   method: "get",
+  //   url: BaseURL + "/CheckCall",
+  //   mode: "no-cors",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // })
+  //   .then((response) => {
+  //     console.log("the response: ", response);
+  //   })
+  //   .catch((error) => {
+  //     console.log("the error is: ", error);
+  //   });
 };
 
 const step2 = async () => {
