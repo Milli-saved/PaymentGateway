@@ -31,6 +31,24 @@ const step3 = async () => {
     mode: CryptoJS.mode.ECB,
     padding: CryptoJS.pad.Pkcs7,
   }).toString();
+
+  const toEncryptedArray = CryptoJS.enc.Utf8.parse("CBE_School_Fee");
+  const ivv = CryptoJS.lib.WordArray.random(8); // Generate a random IV of 64 bits (8 bytes)
+  const securityKeyArray = CryptoJS.MD5(CryptoJS.enc.Utf8.parse("b14ca5898a4e4133bbce2ea2315a1916"));
+  const objTripleDESCryptoService = CryptoJS.TripleDES.encrypt(toEncryptedArray, securityKeyArray, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7,
+    ivv
+  });
+  
+  const value = objTripleDESCryptoService.toString()
+
+
+
+    console.log("the newly returned: ", objTripleDESCryptoService.toString())
+    
+    // console.log("the newly returned Dec: ", objTripleDESCryptoServiceDec.toString() == '')
+
   let header = {
     "Content-Type": "application/xml",
     changeOrigin: true,
@@ -44,16 +62,40 @@ const step3 = async () => {
 
   console.log(response.data.slice(3));
   let new_data = response.data.slice(3);
-  const decryptedMsg = CryptoJS.AES.decrypt(new_data, key, {
-    iv,
-    mode: CryptoJS.mode.ECB,
-    padding: CryptoJS.pad.Pkcs7,
-  }).toString(CryptoJS.enc.Utf8);
 
-  console.log("decryptede message: ", decryptedMsg);
+  const toDecryptArray = new_data;
+  console.log("tod arr: ", toDecryptArray)
+  const securityKeyArrayDec = CryptoJS.MD5(CryptoJS.enc.Utf8.parse("b14ca5898a4e4133bbce2ea2315a1916"));
+  const objTripleDESCryptoServiceDec = CryptoJS.TripleDES.decrypt(
+    { value: toDecryptArray },
+    securityKeyArrayDec,
+    {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7,
+      ivv
+    }
+    );
+    console.log("the newly returned Dec TYPE: ",typeof objTripleDESCryptoServiceDec.toString())
+    console.log("the newly returned Dec: ", objTripleDESCryptoServiceDec.toString() == '')
+
+  // const decryptedMsg = CryptoJS.AES.decrypt(new_data, key, {
+  //   iv,
+  //   mode: CryptoJS.mode.ECB,
+  //   padding: CryptoJS.pad.Pkcs7,
+  // }).toString(CryptoJS.enc.Utf8);
+
+  // console.log("decryptede message: ", decryptedMsg);
   //
-  return response.data;
+  
+
+  console.log(objTripleDESCryptoServiceDec.toString());
+  console.log(CryptoJS.enc.Utf8.stringify(objTripleDESCryptoServiceDec));
+  console.log(response.data);
 };
+
+// Encrypt plaintext using TripleDES with ECB mode and PKCS7 padding
+ 
+
 
 const step4 = async () => {
   let iv = CryptoJS.enc.Hex.parse("0000000000000000");
