@@ -12,17 +12,17 @@ import { useEffect } from "react";
 function App() {
   const dispatch = useDispatch();
   const { step, msg } = useSelector((state) => state.payment);
-  useEffect(() => {
-    if (step === 0) {
-      // dispatch(createPaymentGateway1());
-    } else if (step === 1) {
-      dispatch(createPaymentGateway2());
-    } else if (step === 2) {
-      dispatch(createPaymentGateway3());
-    } else if (step === 3) {
-      dispatch(createPaymentGateway4());
-    }
-  }, [step, dispatch]);
+  // useEffect(() => {
+  //   if (step === 0) {
+  //     dispatch(createPaymentGateway1());
+  //   } else if (step === 1) {
+  //     dispatch(createPaymentGateway2());
+  //   } else if (step === 2) {
+  //     dispatch(createPaymentGateway3());
+  //   } else if (step === 3) {
+  //     dispatch(createPaymentGateway4());
+  //   }
+  // }, [step, dispatch]);
   const buttonHandler1 = () => {
     dispatch(createPaymentGateway1());
   };
@@ -43,7 +43,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <p>step : {step}</p>
-        <p>The message from the gate way</p>
+        <p>The message from the gateway is: </p>
         <p>{msg}</p>
         <button
           onClick={buttonHandler1}
