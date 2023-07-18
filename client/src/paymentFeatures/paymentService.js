@@ -26,25 +26,25 @@ const step2 = async () => {
 const step3 = async () => {
   let iv = CryptoJS.enc.Hex.parse("0000000000000000");
   let key = CryptoJS.enc.Utf8.parse("b14ca5898a4e4133bbce2ea2315a1916");
-
-  const toEncryptedArray = CryptoJS.enc.Utf8.parse("CBE_School_Fee");
   const ivv = CryptoJS.lib.WordArray.random(8);
   const securityKeyArray = CryptoJS.MD5(
     CryptoJS.enc.Utf8.parse("b14ca5898a4e4133bbce2ea2315a1916")
   );
-  const objTripleDESCryptoService = CryptoJS.TripleDES.encrypt(
-    toEncryptedArray,
-    securityKeyArray,
-    {
-      mode: CryptoJS.mode.ECB,
-      padding: CryptoJS.pad.Pkcs7,
-      ivv,
-    }
-  );
 
-  const value = objTripleDESCryptoService.toString();
+  // const toEncryptedArray = CryptoJS.enc.Utf8.parse("CBE_School_Fee");
+  // const objTripleDESCryptoService = CryptoJS.TripleDES.encrypt(
+  //   toEncryptedArray,
+  //   securityKeyArray,
+  //   {
+  //     mode: CryptoJS.mode.ECB,
+  //     padding: CryptoJS.pad.Pkcs7,
+  //     ivv,
+  //   }
+  // );
 
-  console.log("the newly returned: ", objTripleDESCryptoService.toString());
+  // const value = objTripleDESCryptoService.toString();
+
+  // console.log("the newly returned: ", objTripleDESCryptoService.toString());
 
   let header = {
     "Content-Type": "application/xml",
@@ -57,11 +57,9 @@ const step3 = async () => {
   const response = await axios.post("/api/cbebpg/CheckMeENC", data, header);
 
   let new_data = response.data.slice(3);
+  console.log("response from the API: ", new_data)
 
-  // const securityKeyArrayDec = CryptoJS.MD5(
-  //   CryptoJS.enc.Utf8.parse("b14ca5898a4e4133bbce2ea2315a1916")
-  // );
-  const objTripleDESCryptoServiceDec = CryptoJS.TripleDES.decrypt(
+  const decryptionProcess = CryptoJS.TripleDES.decrypt(
     new_data,
     securityKeyArray,
     {
@@ -70,15 +68,14 @@ const step3 = async () => {
       ivv,
     }
   );
-  let decryptedWord = CryptoJS.enc.Utf8.stringify(objTripleDESCryptoServiceDec);
+  let decryptedWord = CryptoJS.enc.Utf8.stringify(decryptionProcess);
 
   console.log(
     "the decryption process *****************: stringify: ",
-    CryptoJS.enc.Utf8.stringify(objTripleDESCryptoServiceDec)
+    CryptoJS.enc.Utf8.stringify(decryptionProcess)
   );
   return decryptedWord;
 };
-
 
 const step4 = async () => {
   let header = {
@@ -91,7 +88,7 @@ const step4 = async () => {
   const securityKeyArray = CryptoJS.MD5(
     CryptoJS.enc.Utf8.parse("b14ca5898a4e4133bbce2ea2315a1916")
   );
-  const objTripleDESCryptoService = CryptoJS.TripleDES.encrypt(
+  const decryptionProcess = CryptoJS.TripleDES.encrypt(
     toEncryptedArray,
     securityKeyArray,
     {
@@ -101,7 +98,7 @@ const step4 = async () => {
     }
   );
 
-  const value = objTripleDESCryptoService.toString();
+  const value = decryptionProcess.toString();
   console.log("the value of value in S4: ", value);
   const data = {
     MName: value,
