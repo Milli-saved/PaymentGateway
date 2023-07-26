@@ -13,7 +13,7 @@ const step2 = async () => {
     changeOrigin: true,
   };
   let data = {
-    tillCode: "005",
+    tillCode: "003",
   };
   const response = await axios.post("/api/cbebpg/CheckMe", data, {
     header,
@@ -33,8 +33,8 @@ const step3 = async () => {
     changeOrigin: true,
   };
   let data = {
-    MName: "CBE_School_Fee",
-    tillCode: "005",
+    MName: "CBE School Fee",
+    tillCode: "003",
   };
   const response = await axios.post("/api/cbebpg/CheckMeENC", data, header);
 
