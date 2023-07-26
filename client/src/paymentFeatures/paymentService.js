@@ -22,8 +22,7 @@ const step2 = async () => {
 };
 
 const step3 = async () => {
-  const ivv = CryptoJS.lib.WordArray.random(8);
-  let ivW = CryptoJS.enc.Hex.parse("0000000000000000");
+  const iv = CryptoJS.lib.WordArray.random(8);
   const securityKeyArray = CryptoJS.MD5(
     CryptoJS.enc.Utf8.parse("b14ca5898a4e4133bbce2ea2315a1916")
   );
@@ -47,7 +46,7 @@ const step3 = async () => {
     {
       mode: CryptoJS.mode.ECB,
       padding: CryptoJS.pad.Pkcs7,
-      ivW,
+      iv,
     }
   );
   let decryptedWord = CryptoJS.enc.Utf8.stringify(decryptionProcess);
@@ -67,51 +66,48 @@ const step4 = async () => {
     "Content-Type": "application/xml",
     changeOrigin: true,
   };
-  console.log("step-3: ", await step3());
 
-  const toEncryptedArray = CryptoJS.enc.Utf8.parse("CBE_School_Fee");
-  const toEncryptedArray2 = CryptoJS.enc.Utf8.parse("005");
-
-  const ivv = CryptoJS.lib.WordArray.random(8);
+  // ENCRYPTION PROCESS
+  const toEncryptedArray = CryptoJS.enc.Utf8.parse("CBE School Fee");
+  const iv = CryptoJS.lib.WordArray.random(8);
   const securityKeyArray = CryptoJS.MD5(
     CryptoJS.enc.Utf8.parse("b14ca5898a4e4133bbce2ea2315a1916")
   );
-  const decryptionProcess = CryptoJS.TripleDES.encrypt(
+  const encryptionProcess = CryptoJS.TripleDES.encrypt(
     toEncryptedArray,
     securityKeyArray,
     {
       mode: CryptoJS.mode.ECB,
       padding: CryptoJS.pad.Pkcs7,
-      ivv,
+      iv,
     }
   );
 
-  const decryptionProcess2 = CryptoJS.TripleDES.encrypt(
-    toEncryptedArray2,
+  const value = encryptionProcess.toString();
+
+  // console.log("stringfied2, ", CryptoJS.enc.Utf8.stringify(encryptionProcess));
+  // console.log("to string(), ", encryptionProcess.toString());
+
+  const data = {
+    MName: value,
+    tillCode: "001",
+  };
+  const response = await axios.post("/api/cbebpg/CheckMeDEC", data, header);
+
+  // DECRYPTION PROCESS
+  let new_data = response.data;
+  const decryptionProcess = CryptoJS.TripleDES.decrypt(
+    new_data,
     securityKeyArray,
     {
       mode: CryptoJS.mode.ECB,
       padding: CryptoJS.pad.Pkcs7,
-      ivv,
+      iv,
     }
   );
+  let decryptedWord = CryptoJS.enc.Utf8.stringify(decryptionProcess);
 
-  const value = decryptionProcess.toString();
-  // let stringfied = CryptoJS.enc.Utf8.stringify(decryptionProcess2);
-  let stringfied = decryptionProcess2.toString();
-
-  console.log("decryptionProcess2, ", decryptionProcess2);
-  console.log("stringfied, ", stringfied);
-
-  const value2 = decryptionProcess2;
-  console.log("the value of value in S4: ", value);
-  console.log("the value of value in S4: ", value2);
-  const data = {
-    MName: value,
-    tillCode: "005",
-  };
-  const response = await axios.post("/api/cbebpg/CheckMeDEC", data, header);
-  return response.data;
+  return decryptedWord;
 };
 const paymentService = {
   step1,
